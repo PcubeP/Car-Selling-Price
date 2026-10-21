@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+ml/.venv/
+ml/__pycache__/
+ml/*.pyc
+__pycache__/
+*.pyc
+*.pyo
+.Python

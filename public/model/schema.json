@@ -1,0 +1,229 @@
+{
+  "priceUnit": "INR",
+  "refYear": 2024,
+  "outputName": "variable",
+  "inputOrder": [
+    "brand",
+    "model",
+    "body_type",
+    "fuel",
+    "transmission",
+    "owner",
+    "year",
+    "km_driven"
+  ],
+  "numeric": {
+    "year": {
+      "min": 2010,
+      "max": 2024,
+      "default": 2019,
+      "step": 1
+    },
+    "km_driven": {
+      "min": 500,
+      "max": 222175,
+      "default": 45000,
+      "step": 1000
+    }
+  },
+  "categorical": {
+    "fuel": [
+      "CNG",
+      "Diesel",
+      "Petrol"
+    ],
+    "transmission": [
+      "Automatic",
+      "Manual"
+    ],
+    "owner": [
+      "First",
+      "Second",
+      "Third"
+    ]
+  },
+  "models": [
+    {
+      "model": "Amaze",
+      "brand": "Honda",
+      "body_type": "Sedan",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "City",
+      "brand": "Honda",
+      "body_type": "Sedan",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Creta",
+      "brand": "Hyundai",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Venue",
+      "brand": "Hyundai",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "i20",
+      "brand": "Hyundai",
+      "body_type": "Hatchback",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Seltos",
+      "brand": "Kia",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Sonet",
+      "brand": "Kia",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Scorpio",
+      "brand": "Mahindra",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel"
+      ]
+    },
+    {
+      "model": "Thar",
+      "brand": "Mahindra",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "XUV700",
+      "brand": "Mahindra",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Alto",
+      "brand": "Maruti",
+      "body_type": "Hatchback",
+      "fuels": [
+        "CNG",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Baleno",
+      "brand": "Maruti",
+      "body_type": "Hatchback",
+      "fuels": [
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Dzire",
+      "brand": "Maruti",
+      "body_type": "Sedan",
+      "fuels": [
+        "CNG",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Ertiga",
+      "brand": "Maruti",
+      "body_type": "MPV",
+      "fuels": [
+        "CNG",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Swift",
+      "brand": "Maruti",
+      "body_type": "Hatchback",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "WagonR",
+      "brand": "Maruti",
+      "body_type": "Hatchback",
+      "fuels": [
+        "CNG",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Nexon",
+      "brand": "Tata",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Punch",
+      "brand": "Tata",
+      "body_type": "SUV",
+      "fuels": [
+        "CNG",
+        "Petrol"
+      ]
+    },
+    {
+      "model": "Fortuner",
+      "brand": "Toyota",
+      "body_type": "SUV",
+      "fuels": [
+        "Diesel"
+      ]
+    },
+    {
+      "model": "Innova Crysta",
+      "brand": "Toyota",
+      "body_type": "MPV",
+      "fuels": [
+        "Diesel"
+      ]
+    }
+  ],
+  "metrics": {
+    "mae": 35674,
+    "r2": 0.9886,
+    "mape": 7.07,
+    "n_test": 1200
+  }
+}

@@ -1,0 +1,73 @@
+import { useEffect, useRef, useState } from 'react'
+import * as ort from 'onnxruntime-web'
+import type { CarInput, Schema } from '@/lib/schema'
+
+// Load the wasm backend from the CDN so we don't have to bundle/copy binaries.
+// Must match the installed onnxruntime-web version exactly, or the wasm glue
+// mismatches the JS ("e.getValue is not a function").
+ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/'
+
+const CATEGORICAL = ['brand', 'model', 'body_type', 'fuel', 'transmission', 'owner'] as const
+const NUMERIC = ['year', 'km_driven'] as const
+
+type Status = 'loading' | 'ready' | 'error'
+
+export function usePricePredictor() {
+  const sessionRef = useRef<ort.InferenceSession | null>(null)
+  // onnxruntime-web rejects concurrent run() on one session; serialize calls.
+  const chainRef = useRef<Promise<unknown>>(Promise.resolve())
+  const [schema, setSchema] = useState<Schema | null>(null)
+  const [status, setStatus] = useState<Status>('loading')
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    async function load() {
+      try {
+        const [schemaRes, session] = await Promise.all([
+          fetch(`${import.meta.env.BASE_URL}model/schema.json`).then((r) => r.json() as Promise<Schema>),
+          ort.InferenceSession.create(`${import.meta.env.BASE_URL}model/car_price.onnx`),
+        ])
+        if (cancelled) return
+        sessionRef.current = session
+        setSchema(schemaRes)
+        setStatus('ready')
+      } catch (err) {
+        if (cancelled) return
+        setError(err instanceof Error ? err.message : String(err))
+        setStatus('error')
+      }
+    }
+    void load()
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  async function runOnce(input: CarInput): Promise<number> {
+    const session = sessionRef.current
+    if (!session || !schema) throw new Error('Model not loaded')
+
+    const feeds: Record<string, ort.Tensor> = {}
+    for (const col of CATEGORICAL) {
+      feeds[col] = new ort.Tensor('string', [String(input[col])], [1, 1])
+    }
+    for (const col of NUMERIC) {
+      feeds[col] = new ort.Tensor('float32', Float32Array.from([Number(input[col])]), [1, 1])
+    }
+    const out = await session.run(feeds)
+    const value = out[schema.outputName].data as Float32Array
+    return value[0]
+  }
+
+  function predict(input: CarInput): Promise<number> {
+    const next = chainRef.current.then(
+      () => runOnce(input),
+      () => runOnce(input),
+    )
+    chainRef.current = next.catch(() => undefined)
+    return next
+  }
+
+  return { schema, status, error, predict }
+}

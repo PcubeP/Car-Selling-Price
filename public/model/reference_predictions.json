@@ -1,0 +1,57 @@
+[
+  {
+    "brand": "Toyota",
+    "model": "Innova Crysta",
+    "body_type": "MPV",
+    "fuel": "Diesel",
+    "transmission": "Manual",
+    "owner": "Second",
+    "year": 2024.0,
+    "km_driven": 500.0,
+    "pred": 2066517.7224543833
+  },
+  {
+    "brand": "Maruti",
+    "model": "Dzire",
+    "body_type": "Sedan",
+    "fuel": "CNG",
+    "transmission": "Manual",
+    "owner": "First",
+    "year": 2015.0,
+    "km_driven": 89786.0,
+    "pred": 234389.62333914486
+  },
+  {
+    "brand": "Maruti",
+    "model": "Alto",
+    "body_type": "Hatchback",
+    "fuel": "Petrol",
+    "transmission": "Manual",
+    "owner": "First",
+    "year": 2016.0,
+    "km_driven": 80504.0,
+    "pred": 196570.1458655868
+  },
+  {
+    "brand": "Tata",
+    "model": "Nexon",
+    "body_type": "SUV",
+    "fuel": "Petrol",
+    "transmission": "Manual",
+    "owner": "First",
+    "year": 2019.0,
+    "km_driven": 44580.0,
+    "pred": 606685.2905093742
+  },
+  {
+    "brand": "Hyundai",
+    "model": "i20",
+    "body_type": "Hatchback",
+    "fuel": "Diesel",
+    "transmission": "Manual",
+    "owner": "First",
+    "year": 2020.0,
+    "km_driven": 51697.0,
+    "pred": 592743.8841062798
+  }
+]
