@@ -1,8 +1,8 @@
 # India Used-Car Price Predictor
 
 A machine-learning price estimator for India-market used cars. A gradient-boosting model is trained
-in Python, exported to **ONNX**, and run **in the browser** with `onnxruntime-web` — so predictions
-happen on-device with no backend.
+in Python, exported to **ONNX**, and run **in the browser** with `onnxruntime-web` — so inference
+happens on-device with no server. (The wasm runtime and web fonts are fetched once from public CDNs.)
 
 ## Features
 
@@ -47,7 +47,7 @@ Model quality on the held-out test set: **R² ≈ 0.99, mean error ≈ 7%**.
 
 ```bash
 npm install
-npm run dev        # http://localhost:5174
+npm run dev        # http://localhost:5173
 npm run build
 ```
 

@@ -3,9 +3,12 @@ import * as ort from 'onnxruntime-web'
 import type { CarInput, Schema } from '@/lib/schema'
 
 // Load the wasm backend from the CDN so we don't have to bundle/copy binaries.
-// Must match the installed onnxruntime-web version exactly, or the wasm glue
-// mismatches the JS ("e.getValue is not a function").
-ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/'
+// The wasm glue must match the installed onnxruntime-web version exactly, or it
+// mismatches the JS ("e.getValue is not a function"). Derive the version from the
+// package itself (onnxruntime-web reports its own version) so bumping the dep
+// can't silently desync the CDN path.
+const ORT_VERSION = ort.env.versions.web
+ort.env.wasm.wasmPaths = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ORT_VERSION}/dist/`
 
 const CATEGORICAL = ['brand', 'model', 'body_type', 'fuel', 'transmission', 'owner'] as const
 const NUMERIC = ['year', 'km_driven'] as const
@@ -28,7 +31,12 @@ export function usePricePredictor() {
           fetch(`${import.meta.env.BASE_URL}model/schema.json`).then((r) => r.json() as Promise<Schema>),
           ort.InferenceSession.create(`${import.meta.env.BASE_URL}model/car_price.onnx`),
         ])
-        if (cancelled) return
+        if (cancelled) {
+          // Effect was torn down (e.g. StrictMode double-mount) while the session
+          // was still loading; release it so we don't orphan the native handle.
+          void session.release()
+          return
+        }
         sessionRef.current = session
         setSchema(schemaRes)
         setStatus('ready')
@@ -41,6 +49,11 @@ export function usePricePredictor() {
     void load()
     return () => {
       cancelled = true
+      // Release an already-loaded session; one still mid-load is released by the
+      // cancelled guard above once create() resolves.
+      const session = sessionRef.current
+      sessionRef.current = null
+      void session?.release()
     }
   }, [])
 
