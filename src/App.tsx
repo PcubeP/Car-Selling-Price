@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 import { usePricePredictor } from '@/hooks/usePricePredictor'
 import type { CarInput, CarModel, Schema } from '@/lib/schema'
 import { formatINR, formatKm } from '@/lib/format'

@@ -11,13 +11,13 @@
     "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
-    "framer-motion": "^11.11.17",
-    "onnxruntime-web": "1.30.0",
+    "motion": "^14.9.0",
+    "onnxruntime-web": "^1.31.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@types/node": "^20.19.43",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^4.3.3",
